@@ -1,23 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ArticleTease } from './article-tease';
+import { ArticleSummariesService } from './article-summaries.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [ArticleSummariesService]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Articles';
 
   selectedArticleName: string;
 
-  articles: ArticleTease[] = [
-    new ArticleTease({ title: "Test", tease: "I am a test", date: new Date(), lastUpdated: new Date() }),
-    new ArticleTease({ title: "Test2", tease: "I am also a test", date: new Date(), lastUpdated: new Date() }),
-    new ArticleTease({ title: "Test3", tease: "Lorem ipsum and all that jazz", date: new Date(), lastUpdated: new Date() }),
-  ]
+  articles: ArticleTease[];
 
-  public onSelect(title: string){
+  ngOnInit():void{
+    this.getArticleSummaries();
+  }
+
+  constructor(private ass: ArticleSummariesService){
+  }
+
+  getArticleSummaries(){
+    this.ass.getArticleSummaries().then( (articles) => {
+      this.articles = articles;
+    });
+  }
+
+  public onSelect(title: string) {
     this.selectedArticleName = title;
   }
 }
