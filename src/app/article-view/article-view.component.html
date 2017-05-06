@@ -1,3 +1,35 @@
-<div *ngIf="articleName">
-  <h2>I am an article called {{articleName}}</h2>
+<div *ngIf="article">
+  <h2>{{article.title}} </h2>
+  <p>{{article.tease}}</p>
+  <p><a *ngIf="article.tags.length > 0"> Tags: </a> <a style="border: 2px black solid;border-radius:3px;margin-left:5px" *ngFor="let tag of
+      article.tags "> {{tag}} </a></p>
+
+  <a *ngFor="let section of article.sections ">
+    <h3>{{section.title}}</h3>
+    <p>{{section.content}}</p>
+    <ul>
+      <li *ngFor="let ref of section.references ">
+        {{ref.name}} - {{ref.source}} -- {{ref.url}}
+      </li>
+    </ul>
+  </a>
+
+  <div *ngFor="let personGroup of article.people" style="border: 1px black solid;border-radius:3px;padding:15 15 15 15;margin:15 15 15 15">
+    <h3>{{personGroup.category}}</h3>
+    <ul>
+      <li *ngFor="let person of personGroup.elements">
+        {{person}}
+      </li>
+    </ul>
+  </div>
+
+  <div *ngFor="let articleGroup of article.articles" style="border: 1px black solid;border-radius:3px;padding:15 15 15 15;margin:15 15 15 15">
+    <h3>{{articleGroup.category}}</h3>
+    <ul>
+      <li *ngFor="let article of articleGroup.elements">
+        {{article}}
+      </li>
+    </ul>
+  </div>
+
 </div>

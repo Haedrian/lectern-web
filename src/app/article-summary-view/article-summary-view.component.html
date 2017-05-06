@@ -1,0 +1,10 @@
+<ul class="articles">
+  <li *ngFor="let article of articles" [routerLink]="['/articles',article.title]">
+    <h2>{{article.title}}</h2>
+    <p>{{article.tease}}</p>
+    <p style="font-size:small">{{article.cleanDate()}} Last Updated: {{article.cleanLastUpdated()}}</p>
+    <hr/>
+  </li>
+</ul>
+
+<!--<app-article-view [articleName]="selectedArticleName"></app-article-view>-->
