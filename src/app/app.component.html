@@ -1,0 +1,11 @@
+<h1>
+  {{title}}
+</h1>
+<ul class="articles">
+  <li *ngFor="let article of articles">
+    <h2>{{article.title}}</h2>
+    <p>{{article.tease}}</p>
+    <p style="font-size:small">{{article.cleanDate()}} Last Updated: {{article.cleanLastUpdated()}}</p>
+    <hr/>
+  </li>
+</ul>
