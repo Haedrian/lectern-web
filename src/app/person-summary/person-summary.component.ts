@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonService } from "../person.service";
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Person } from "../person";
 
 @Component({
@@ -9,19 +10,45 @@ import { Person } from "../person";
 })
 export class PersonComponent implements OnInit {
 
-  constructor(private ps: PersonService) { }
+  constructor(private route: ActivatedRoute, private ps: PersonService, private router: Router) { }
 
   persons: Person[];
+  searchTerm: string;
 
   ngOnInit() {
-    this.getPeople();
+    //Wipe
+    this.persons = null;
+
+    this.route.queryParams.subscribe(params => {
+
+      this.persons = null
+
+      var page = params['page'];
+      if (page) {
+        page = Number(page);
+      }
+
+      var query = params['query'];
+      
+      this.getPeople(query, page);
+
+    });
   }
 
-  getPeople() {
+  getPeople(query, page) {
     this.persons = [];
-    this.ps.getPeople().then((people) => {
+    this.ps.getPeople(query, page).then((people) => {
       this.persons = people;
     })
+  }
+
+  search(searchTerm: string) {
+    if (searchTerm) {
+      this.router.navigate(['people'], { queryParams: { query: searchTerm } });
+    } else {
+      //Clear the search term
+      this.router.navigate(['people']);
+    }
   }
 
 }

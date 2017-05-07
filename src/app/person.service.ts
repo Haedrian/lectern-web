@@ -22,7 +22,7 @@ export class PersonService {
     reqUrl += "?page=" + page;
 
     if (query) {
-      reqUrl + "&query=" + query;
+      reqUrl += "&query=" + query;
     }
 
     return this.http.get(reqUrl).toPromise().then((res) =>

@@ -1,6 +1,6 @@
 <hr/>
-<!--<label for="txtSearch">Search:</label> <input [(ngModel)]="searchTerm" id="txtSearch" placeholder="search" type="text" (keyup.enter)="search(searchTerm)" />
-<button (click)="search(searchTerm)">Search</button>-->
+<label for="txtSearch">Search:</label> <input [(ngModel)]="searchTerm" id="txtSearch" placeholder="search" type="text" (keyup.enter)="search(searchTerm)" />
+<button (click)="search(searchTerm)">Search</button>
 
   <ul class="person">
     <li *ngFor="let person of persons" [routerLink]="['/person',person.name]">
