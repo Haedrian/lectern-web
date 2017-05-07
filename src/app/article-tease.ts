@@ -2,10 +2,13 @@ export class ArticleTease {
     public title: string;
     public tease: string;
     public date: Date;
-    public lastUpdated: Date;
+    public lastModified: Date;
 
     public constructor(json: any) {
-        Object.assign(this, json);
+        this.title = json.title;
+        this.tease = json.tease;
+        this.date = new Date(json.date);
+        this.lastModified = new Date(json.lastModified);
     }
 
     public cleanDate() {
@@ -13,14 +16,23 @@ export class ArticleTease {
     }
 
     public cleanLastUpdated() {
-        return this.getISODate(this.lastUpdated);
+        return this.getISODate(this.lastModified);
     }
 
     private getISODate(date: Date): string {
+        console.log(date);
         if (!date) {
-            return null;
+            return "";
         }
 
-        return date.toISOString().split('T')[0];
+        if (isNaN(date.getTime())) {
+            return ""; //Not a date
+        }
+
+        if (date.toISOString) {
+            return date.toISOString().split('T')[0];
+        }
+
+        return "";
     }
 }
