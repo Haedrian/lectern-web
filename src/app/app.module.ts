@@ -11,13 +11,17 @@ import { ArticleSummaryViewComponent } from './article-summary-view/article-summ
 import { ArticleSummariesService } from './article-summaries.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ArticleService } from './article.service';
+import { PersonService } from './person.service';
+
+import { PersonComponent } from './person-summary/person-summary.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ArticleViewComponent,
     ArticleSummaryViewComponent,
-    DashboardComponent
+    DashboardComponent,
+    PersonComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +29,7 @@ import { ArticleService } from './article.service';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [ArticleSummariesService, ArticleService],
+  providers: [ArticleSummariesService, ArticleService, PersonService],
   bootstrap: [AppComponent]
 })
 
