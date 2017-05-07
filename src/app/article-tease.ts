@@ -20,7 +20,6 @@ export class ArticleTease {
     }
 
     private getISODate(date: Date): string {
-        console.log(date);
         if (!date) {
             return "";
         }

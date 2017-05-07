@@ -22,3 +22,8 @@ body, input[text], button {
 * {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+body{
+    width: 50%;
+    margin: auto;
+}

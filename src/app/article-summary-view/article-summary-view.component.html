@@ -1,8 +1,12 @@
-<ul class="articles">
-  <li *ngFor="let article of articles" [routerLink]="['/articles',article.title]">
-    <h2>{{article.title}}</h2>
-    <p>{{article.tease}}</p>
-    <p style="font-size:small">{{article.cleanDate()}} Last Updated: {{article.cleanLastUpdated()}}</p>
-    <hr/>
-  </li>
-</ul>
+<hr/>
+<label for="txtSearch">Search:</label> <input [(ngModel)]="searchTerm" id="txtSearch" placeholder="search" type="text" (keyup.enter)="search(searchTerm)" />
+<button (click)="search(searchTerm)">Search</button>
+
+  <ul class="articles">
+    <li *ngFor="let article of articles" [routerLink]="['/articles',article.title]">
+      <h2>{{article.title}}</h2>
+      <p>{{article.tease}}</p>
+      <p style="font-size:small">{{article.cleanDate()}} Last Updated: {{article.cleanLastUpdated()}}</p>
+      <hr/>
+    </li>
+  </ul>

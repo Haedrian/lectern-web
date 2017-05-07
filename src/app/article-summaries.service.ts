@@ -13,8 +13,17 @@ export class ArticleSummariesService {
 
   }
 
-  getArticleSummaries(): Promise<ArticleTease[]> {
-    return this.http.get(this.url).toPromise().then(res =>
+  getArticleSummaries(query = null, page = 0): Promise<ArticleTease[]> {
+
+    let reqUrl = this.url;
+
+    reqUrl += "?page=" + page;
+
+    if (query) {
+      reqUrl += "&query=" + query;
+    }
+
+    return this.http.get(reqUrl).toPromise().then(res =>
       res.json().map((d) => { return new ArticleTease(d) })
     ).catch(this.handleError);
   }
