@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app-routing/app-routing.module';
 
 import { AppComponent } from './app.component';
 import { ArticleViewComponent } from './article-view/article-view.component';
@@ -22,25 +23,7 @@ import { ArticleService } from './article.service';
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot([
-      {
-        path: 'articles',
-        component: ArticleSummaryViewComponent
-      },
-      {
-        path: 'articles/:name',
-        component: ArticleViewComponent
-      },
-      {
-        path: 'dashboard',
-        component: DashboardComponent
-      },
-      {
-        path: '',
-        redirectTo: '/dashboard',
-        pathMatch: 'full'
-      }
-    ])
+    AppRoutingModule
   ],
   providers: [ArticleSummariesService, ArticleService],
   bootstrap: [AppComponent]
