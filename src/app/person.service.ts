@@ -7,6 +7,7 @@ import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/toPromise';
 
 import { Person } from './person';
+import { ArticleTease } from "./article-tease";
 
 @Injectable()
 export class PersonService {
@@ -15,7 +16,7 @@ export class PersonService {
 
   private url = Settings.host + "/people";
 
-  
+
   getPeople(query = null, page = 0): Promise<Person[]> {
     let reqUrl = this.url;
 
@@ -29,13 +30,24 @@ export class PersonService {
       res.json().map((d) => { return new Person(d) })).catch(this.handleError);
   }
 
-  getPerson(name: string): Promise<Person> {
+  getPerson(name: string, page = 0): Promise<Person> {
     let reqUrl = this.url;
 
     reqUrl += "/" + name;
 
-    return this.http.get(reqUrl).toPromise().then((res) =>
-      new Person(res.json())).catch(this.handleError);
+    return this.http.get(reqUrl).toPromise().then((res) => {
+      let person = new Person(res.json());
+
+      reqUrl += "/articles?page=" + page;
+
+      return this.http.get(reqUrl).toPromise().then((arts) => {
+
+        person.relatedArticles = arts.json().map((a) => { return new ArticleTease(a) });
+
+        return Promise.resolve(person);
+
+      })
+    }).catch(this.handleError);
 
   }
 

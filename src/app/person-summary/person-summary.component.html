@@ -3,7 +3,7 @@
 <button (click)="search(searchTerm)">Search</button>
 
   <ul class="person">
-    <li *ngFor="let person of persons" [routerLink]="['/person',person.name]">
+    <li *ngFor="let person of persons" [routerLink]="['/people',person.name]">
       <h2>{{person.name}}</h2>
       <p>{{person.about}}</p>
       <hr/>

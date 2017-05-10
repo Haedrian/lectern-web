@@ -14,6 +14,7 @@ import { ArticleService } from './article.service';
 import { PersonService } from './person.service';
 
 import { PersonComponent } from './person-summary/person-summary.component';
+import { PersonViewComponent } from './person-view/person-view.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { PersonComponent } from './person-summary/person-summary.component';
     ArticleViewComponent,
     ArticleSummaryViewComponent,
     DashboardComponent,
-    PersonComponent
+    PersonComponent,
+    PersonViewComponent
   ],
   imports: [
     BrowserModule,

@@ -5,7 +5,8 @@ import { ArticleViewComponent } from '../article-view/article-view.component';
 import { ArticleSummaryViewComponent } from '../article-summary-view/article-summary-view.component';
 import { ArticleSummariesService } from '../article-summaries.service';
 import { DashboardComponent } from '../dashboard/dashboard.component';
-import {PersonComponent} from '../person-summary/person-summary.component';
+import { PersonViewComponent } from '../person-view/person-view.component';
+import { PersonComponent } from '../person-summary/person-summary.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path: 'articles/:name',
     component: ArticleViewComponent
+  },
+  {
+    path: 'people/:name',
+    component: PersonViewComponent
   },
   {
     path: 'people',

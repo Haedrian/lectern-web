@@ -1,0 +1,14 @@
+<div *ngIf="person">
+  <h2>{{person.name}}</h2>
+  <p>{{person.about}}</p>
+  <hr/>
+  <h3>Relates to</h3>
+  <ul class="articles">
+    <li *ngFor="let article of person.relatedArticles" [routerLink]="['/articles',article.title]">
+      <h2>{{article.title}}</h2>
+      <p>{{article.tease}}</p>
+      <p style="font-size:small">{{article.cleanDate()}} Last Updated: {{article.cleanLastUpdated()}}</p>
+      <hr/>
+    </li>
+  </ul>
+</div>
