@@ -17,7 +17,7 @@
   <div *ngFor="let personGroup of article.people" style="border: 1px black solid;border-radius:3px;padding:15 15 15 15;margin:15 15 15 15">
     <h3>{{personGroup.category}}</h3>
     <ul>
-      <li *ngFor="let person of personGroup.elements">
+      <li *ngFor="let person of personGroup.elements" [routerLink] = "['/people',person]">
         {{person}}
       </li>
     </ul>
@@ -26,7 +26,7 @@
   <div *ngFor="let articleGroup of article.articles" style="border: 1px black solid;border-radius:3px;padding:15 15 15 15;margin:15 15 15 15">
     <h3>{{articleGroup.category}}</h3>
     <ul>
-      <li *ngFor="let article of articleGroup.elements">
+      <li *ngFor="let article of articleGroup.elements" [routerLink] = "['/articles',article]">
         {{article}}
       </li>
     </ul>
