@@ -62,6 +62,16 @@ export class PersonService {
 
   }
 
+  getPersonArticleCount(name: string): Promise<number> {
+    let reqUrl = this.url;
+
+    reqUrl += "/" + name + "/articles/count";
+
+    return this.http.get(reqUrl).toPromise().then((res) => {
+      return Promise.resolve(Number(res.json()));
+    }).catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     console.error("Something broke", error);
     return Promise.reject(error);

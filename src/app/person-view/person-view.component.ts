@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { Person } from "../person";
 import 'rxjs/add/operator/switchMap';
@@ -15,17 +15,38 @@ export class PersonViewComponent implements OnInit {
 
   public person: Person;
 
-  constructor(private personService: PersonService, private route: ActivatedRoute) { }
+  amountPerPage = 20;
+  totalPages = 0;
+  currentPage = 0;
+
+  constructor(private personService: PersonService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.person = null;
     this.route.params.subscribe(params => {
       this.route.queryParams.subscribe((query) => {
-        this.personService.getPerson(params['name'], query['page']).then((person) => {
+
+        this.currentPage = params['page'];
+        if (this.currentPage) {
+          this.currentPage = Number(this.currentPage);
+        } else {
+          this.currentPage = 0;
+        }
+
+        return this.personService.getPerson(params['name'], this.currentPage).then((person) => {
           this.person = person;
+
+          return this.personService.getPersonArticleCount(params['name']).then((total) => {
+            this.totalPages = Math.floor(total / this.amountPerPage);
+          })
+
         });
       });
     });
+  }
+
+  changePage(changeTo) {
+    this.router.navigate([], { queryParamsHandling: "merge", queryParams: { page: changeTo } });
   }
 
 }
