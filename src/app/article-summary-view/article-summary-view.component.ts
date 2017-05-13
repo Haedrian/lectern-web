@@ -38,6 +38,10 @@ export class ArticleSummaryViewComponent implements OnInit {
 
       var query = params['query'];
 
+      if (query) {
+        this.searchTerm = query;
+      }
+
       this.getArticleSummaries(query, this.currentPage);
 
     });
