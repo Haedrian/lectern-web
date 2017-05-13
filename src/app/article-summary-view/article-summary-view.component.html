@@ -9,4 +9,5 @@
       <p style="font-size:small">{{article.cleanDate()}} Last Updated: {{article.cleanLastUpdated()}}</p>
       <hr/>
     </li>
+    <button [disabled]="currentPage <= 0" (click)="changePage(currentPage-1)">< Previous</button> <button [disabled]="currentPage >= totalPages" (click)="changePage(currentPage+1)">Next ></button>
   </ul>

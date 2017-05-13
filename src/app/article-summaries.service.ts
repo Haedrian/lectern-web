@@ -28,6 +28,18 @@ export class ArticleSummariesService {
     ).catch(this.handleError);
   }
 
+  getArticleSummaryCounts(query = null): Promise<number> {
+    let reqUrl = this.url + "/count";
+
+    if (query) {
+      reqUrl += "?query=" + query;
+    }
+
+    return this.http.get(reqUrl).toPromise().then((res) => {
+      return Number(res.json());
+    }).catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     console.error("Something broke", error);
     return Promise.reject(error);

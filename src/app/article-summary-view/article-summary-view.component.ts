@@ -16,6 +16,10 @@ export class ArticleSummaryViewComponent implements OnInit {
 
   articles: ArticleTease[];
 
+  amountPerPage = 20;
+  totalPages = 0;
+  currentPage = 0;
+
   ngOnInit(): void {
 
     //Wipe
@@ -25,18 +29,22 @@ export class ArticleSummaryViewComponent implements OnInit {
 
       this.articles = null
 
-      var page = params['page'];
-      if (page) {
-        page = Number(page);
+      this.currentPage = params['page'];
+      if (this.currentPage) {
+        this.currentPage = Number(this.currentPage);
+      } else {
+        this.currentPage = 0;
       }
 
       var query = params['query'];
 
-      this.getArticleSummaries(query, page);
+      this.getArticleSummaries(query, this.currentPage);
 
     });
+  }
 
-    // this.getArticleSummaries();
+  changePage(changeTo) {
+    this.router.navigate([], { queryParamsHandling: "merge", queryParams: { page: changeTo } });
   }
 
   search(searchTerm: string) {
@@ -54,6 +62,12 @@ export class ArticleSummaryViewComponent implements OnInit {
   getArticleSummaries(query: string, page: number) {
     this.ass.getArticleSummaries(query, page).then((articles) => {
       this.articles = articles;
+
+      return this.ass.getArticleSummaryCounts(query).then((total) => {
+        this.totalPages = Math.floor(total / this.amountPerPage) - 1;
+        console.log(this.totalPages);
+      });
+
     });
   }
 
