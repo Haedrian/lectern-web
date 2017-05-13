@@ -15,6 +15,10 @@ export class PersonComponent implements OnInit {
   persons: Person[];
   searchTerm: string;
 
+  amountPerPage = 20;
+  totalPages = 0;
+  currentPage = 0;
+
   ngOnInit() {
     //Wipe
     this.persons = null;
@@ -23,22 +27,32 @@ export class PersonComponent implements OnInit {
 
       this.persons = null
 
-      var page = params['page'];
-      if (page) {
-        page = Number(page);
+      this.currentPage = params['page'];
+      if (this.currentPage) {
+        this.currentPage = Number(this.currentPage);
+      } else {
+        this.currentPage = 0;
       }
 
       var query = params['query'];
-      
-      this.getPeople(query, page);
+
+      this.getPeople(query, this.currentPage);
 
     });
+  }
+
+  changePage(changeTo) {
+    this.router.navigate([], { queryParamsHandling: "merge", queryParams: { page: changeTo } });
   }
 
   getPeople(query, page) {
     this.persons = [];
     this.ps.getPeople(query, page).then((people) => {
       this.persons = people;
+
+      return this.ps.getPeopleCount(query).then((total) => {
+        this.totalPages = Math.floor(total / this.amountPerPage);
+      });
     })
   }
 

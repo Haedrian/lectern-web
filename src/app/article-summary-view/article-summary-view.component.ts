@@ -64,8 +64,7 @@ export class ArticleSummaryViewComponent implements OnInit {
       this.articles = articles;
 
       return this.ass.getArticleSummaryCounts(query).then((total) => {
-        this.totalPages = Math.floor(total / this.amountPerPage) - 1;
-        console.log(this.totalPages);
+        this.totalPages = Math.floor(total / this.amountPerPage);
       });
 
     });

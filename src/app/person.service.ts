@@ -30,6 +30,17 @@ export class PersonService {
       res.json().map((d) => { return new Person(d) })).catch(this.handleError);
   }
 
+  getPeopleCount(query = null): Promise<number> {
+    let reqUrl = this.url + "/count";
+
+    if (query) {
+      reqUrl += "&query=" + query;
+    }
+
+    return this.http.get(reqUrl).toPromise().then((res) =>
+      Promise.resolve(Number(res.json()))).catch(this.handleError);
+  }
+
   getPerson(name: string, page = 0): Promise<Person> {
     let reqUrl = this.url;
 
