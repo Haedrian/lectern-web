@@ -1,13 +1,28 @@
-<hr/>
-<label for="txtSearch">Search:</label> <input [(ngModel)]="searchTerm" id="txtSearch" placeholder="search" type="text" (keyup.enter)="search(searchTerm)"/>
-<button (click)="search(searchTerm)">Search</button>
+<div class="container" style="width:100%">
+  <div class="row">
+    <div class="col s12 offset-m7 m5">
+      <div style="width:100%" class="search-wrapper right">
+        <i style="vertical-align: middle; margin-left:15px" class="material-icons prefix">search</i>
+        <input style="width:80%" [(ngModel)]="searchTerm" id="txtSearch" placeholder="Search" type="text" (keyup.enter)="search(searchTerm)"
+        />
+      </div>
+    </div>
+  </div>
+</div>
 
+
+<h3 *ngIf="articles && articles.length == 0" style="padding-bottom: 30px">Nothing to display</h3>
 <ul class="articles">
-  <li *ngFor="let article of articles" [routerLink]="['/articles',article.title]">
-    <h2>{{article.title}}</h2>
-    <p>{{article.tease}}</p>
-    <p style="font-size:small">{{article.cleanDate()}} Last Updated: {{article.cleanLastUpdated()}}</p>
-    <hr/>
+  <li *ngFor="let article of articles" class="card padded">
+    <h3>{{article.title}}</h3>
+    <p style="white-space:pre-wrap;color:gray">{{article.tease}}</p>
+    <p><i class="material-icons" style="padding-right:15px">access_time</i>{{article.cleanDate()}}</p>
+    <p><i class="material-icons" style="padding-right:15px">update</i>{{article.cleanLastUpdated()}}</p>
+    <div class="card-action">
+      <a [routerLink]="['/articles',article.title]" class="purple-text">Read More</a>
+    </div>
   </li>
-  <button [disabled]="currentPage == 0" (click)="changePage(0)">First</button> <button [disabled]="currentPage <= 0" (click)="changePage(currentPage-1)">< Previous</button>  <button [disabled]="currentPage >= totalPages" (click)="changePage(currentPage+1)">Next ></button>
+  <button class="waves-effect waves-light btn purple" [disabled]="currentPage == 0" (click)="changePage(0)">First</button> 
+  <button class="waves-effect waves-light btn purple" [disabled]="currentPage <= 0" (click)="changePage(currentPage-1)">< Previous</button> 
+   <button class="waves-effect waves-light btn purple" [disabled]="currentPage >= totalPages" (click)="changePage(currentPage+1)">Next ></button>
 </ul>
