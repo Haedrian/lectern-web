@@ -1,35 +1,39 @@
-<div *ngIf="article">
+<div *ngIf="article" class="card padded">
   <h2>{{article.title}} </h2>
-  <p>{{article.tease}}</p>
-  <p><a *ngIf="article.tags.length > 0"> Tags: </a> <a style="border: 2px black solid;border-radius:3px;margin-left:5px" *ngFor="let tag of
-      article.tags "> {{tag}} </a></p>
+  <p style="white-space:pre-wrap;color:gray">{{article.tease}}</p>
+  <div class="chip" style="cursor:pointer" [routerLink]="['/articles']" [queryParams]="{query:tag}" *ngFor="let tag of article.tags ">
+    {{tag}} </div>
 
-  <a *ngFor="let section of article.sections ">
+  <div class="card padded" *ngFor="let section of article.sections ">
     <h3>{{section.title}}</h3>
     <p>{{section.content}}</p>
-    <ul>
-      <li *ngFor="let ref of section.references ">
-        {{ref.name}} - {{ref.source}} -- {{ref.url}}
-      </li>
-    </ul>
-  </a>
-
-  <div *ngFor="let personGroup of article.people" style="border: 1px black solid;border-radius:3px;padding:15 15 15 15;margin:15 15 15 15">
-    <h3>{{personGroup.category}}</h3>
-    <ul>
-      <li *ngFor="let person of personGroup.elements" [routerLink] = "['/people',person]">
-        {{person}}
-      </li>
-    </ul>
+    <div class="card-action">
+      <a class="deep-purple-text darken-2" style="text-transform:none;display:block" *ngFor="let ref of section.references" [href]="ref.url"
+        target="_parent">
+        {{ref.name}} (n.d) retrieved from {{ref.url}}</a>
+    </div>
   </div>
 
-  <div *ngFor="let articleGroup of article.articles" style="border: 1px black solid;border-radius:3px;padding:15 15 15 15;margin:15 15 15 15">
-    <h3>{{articleGroup.category}}</h3>
-    <ul>
-      <li *ngFor="let article of articleGroup.elements" [routerLink] = "['/articles',article]">
-        {{article}}
-      </li>
-    </ul>
-  </div>
+  <ul *ngFor="let personGroup of article.people">
+    <li>
+      <div style="text-transform: capitalize;cursor:default" class="collapsible-header"><i class="material-icons">person</i>{{personGroup.category}}</div>
+      <div class="collapsible-body" style="display:block">
+        <div *ngFor="let person of personGroup.elements">
+          <div class="chip" style="cursor:pointer;" [routerLink]="['/people',person]">{{person}}
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
 
+  <ul *ngFor="let articleGroup of article.articles">
+    <li>
+      <div style="text-transform: capitalize;cursor:default" class="collapsible-header"><i class="material-icons">description</i>{{articleGroup.category}}</div>
+      <div class="collapsible-body" style="display:block">
+        <div class="chip" style="cursor:pointer;display:block" *ngFor="let ag of articleGroup.elements" [routerLink]="['/articles',ag]">
+          {{ag}}
+        </div>
+      </div>
+    </li>
+  </ul>
 </div>
