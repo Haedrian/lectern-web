@@ -4,6 +4,8 @@ import { Location } from '@angular/common';
 import { Article } from "../article";
 import 'rxjs/add/operator/switchMap';
 
+import * as showDown from 'showdown';
+
 import { ArticleService } from '../article.service';
 
 @Component({
@@ -15,15 +17,18 @@ export class ArticleViewComponent implements OnInit {
   constructor(private articleService: ArticleService, private route: ActivatedRoute, private location: Location) {
   }
 
+  converter = new showDown.Converter({ simpleLineBreaks: true });
+
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.articleService.getArticle(params['name']).subscribe((art) => {
         this.article = art;
+
+        art.sections.forEach((s) => {
+          s.content = this.converter.makeHtml(s.content);
+        })
       });
     });
-    // .switchMap((params: Params) =>
-    //   this.articleService.getArticle(params['name']).subscribe((art) => { this.article = art })
-    // );
   }
 
   public article: Article;
