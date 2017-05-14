@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
 import { Article } from "../article";
 import 'rxjs/add/operator/switchMap';
@@ -14,18 +14,35 @@ import { ArticleService } from '../article.service';
   styleUrls: ['./article-view.component.css']
 })
 export class ArticleViewComponent implements OnInit {
-  constructor(private articleService: ArticleService, private route: ActivatedRoute, private location: Location) {
+  constructor(private articleService: ArticleService, private route: ActivatedRoute, private router: Router, private location: Location) {
+    router.events.subscribe(s => {
+      if (s instanceof NavigationEnd) {
+        const tree = router.parseUrl(router.url);
+        if (tree.fragment) {
+          // you can use DomAdapter
+          const element = document.querySelector("#" + tree.fragment);
+          if (element) { element.scrollIntoView(element); }
+        }
+      }
+    });
   }
 
+
   converter = new showDown.Converter({ simpleLineBreaks: true });
+
+  stripOutSpaces(from: string): string {
+    return from.replace(" ", "");
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.articleService.getArticle(params['name']).subscribe((art) => {
         this.article = art;
 
+        let counter = 0;
         art.sections.forEach((s) => {
           s.content = this.converter.makeHtml(s.content);
+          s.order = counter++;
         })
       });
     });

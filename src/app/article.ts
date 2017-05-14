@@ -39,6 +39,7 @@ export class Section {
     public title: string;
     public content: string;
     public references: Reference[]
+    public order: number;
 
     constructor(json) {
         this.title = json.title;
