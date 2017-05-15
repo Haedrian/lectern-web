@@ -30,22 +30,14 @@ export class ArticleViewComponent implements OnInit {
 
   converter = new showDown.Converter({ simpleLineBreaks: true });
 
-  stripOutSpaces(from: string): string {
-    return from.replace(" ", "");
-  }
-
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.articleService.getArticle(params['name']).subscribe((art) => {
-        this.article = art;
+    this.article = this.route.snapshot.data['article'];
 
-        let counter = 0;
-        art.sections.forEach((s) => {
-          s.content = this.converter.makeHtml(s.content);
-          s.order = counter++;
-        })
-      });
-    });
+    let counter = 0;
+    this.article.sections.forEach((s) => {
+      s.content = this.converter.makeHtml(s.content);
+      s.order = counter++;
+    })
   }
 
   public article: Article;

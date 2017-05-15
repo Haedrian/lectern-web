@@ -23,26 +23,20 @@ export class PersonViewComponent implements OnInit {
 
   ngOnInit() {
     this.person = null;
-    this.route.params.subscribe(params => {
-      this.route.queryParams.subscribe((query) => {
 
-        this.currentPage = params['page'];
-        if (this.currentPage) {
-          this.currentPage = Number(this.currentPage);
-        } else {
-          this.currentPage = 0;
-        }
+    this.currentPage = this.route.queryParamMap['page'];
+    if (this.currentPage) {
+      this.currentPage = Number(this.currentPage);
+    } else {
+      this.currentPage = 0;
+    }
 
-        return this.personService.getPerson(params['name'], this.currentPage).then((person) => {
-          this.person = person;
+    this.person = this.route.snapshot.data['person'];
 
-          return this.personService.getPersonArticleCount(params['name']).then((total) => {
-            this.totalPages = Math.floor(total / this.amountPerPage);
-          })
+    return this.personService.getPersonArticleCount(this.route.paramMap['name']).then((total) => {
+      this.totalPages = Math.floor(total / this.amountPerPage);
+    })
 
-        });
-      });
-    });
   }
 
   changePage(changeTo) {
