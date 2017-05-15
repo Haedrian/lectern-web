@@ -7,6 +7,8 @@ import { ArticleSummariesService } from '../article-summaries.service';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { PersonViewComponent } from '../person-view/person-view.component';
 import { PersonComponent } from '../person-summary/person-summary.component';
+import { ArticleResolve } from "../article.resolve";
+import { PersonResolve } from "../person.resolve";
 
 const routes: Routes = [
   {
@@ -15,11 +17,18 @@ const routes: Routes = [
   },
   {
     path: 'articles/:name',
-    component: ArticleViewComponent
+    component: ArticleViewComponent,
+    resolve: {
+      article: ArticleResolve
+    }
   },
   {
     path: 'people/:name',
-    component: PersonViewComponent
+    component: PersonViewComponent,
+    resolve:
+    {
+      person: PersonResolve
+    }
   },
   {
     path: 'people',

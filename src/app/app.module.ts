@@ -14,6 +14,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ArticleService } from './article.service';
 import { PersonService } from './person.service';
 
+import { ArticleResolve } from "./article.resolve";
+import { PersonResolve } from "./person.resolve";
+
 import { PersonComponent } from './person-summary/person-summary.component';
 import { PersonViewComponent } from './person-view/person-view.component';
 
@@ -33,7 +36,7 @@ import { PersonViewComponent } from './person-view/person-view.component';
     AppRoutingModule,
     MaterializeModule
   ],
-  providers: [ArticleSummariesService, ArticleService, PersonService],
+  providers: [ArticleSummariesService, ArticleService, PersonService, ArticleResolve, PersonResolve],
   bootstrap: [AppComponent]
 })
 

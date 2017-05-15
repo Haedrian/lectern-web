@@ -14,12 +14,12 @@ export class ArticleService {
 
   private url = Settings.host + "/articles";
 
-  getArticle(name: string): Observable<Article> {
+  getArticle(name: string): Promise<Article> {
     if (!name) {
       return null;
     }
 
-    return Observable.fromPromise(this.http.get(this.url + "/" + name).toPromise().then((res) => {
+    return (this.http.get(this.url + "/" + name).toPromise().then((res) => {
         return Promise.resolve(new Article(res.json()));
     }));
   }
