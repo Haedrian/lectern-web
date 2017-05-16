@@ -1,0 +1,18 @@
+<header>
+  <nav>
+    <div class="nav-wrapper deep-purple lighten-3">
+      <a routerLink="/articles" class="brand-logo left" style="margin-left:30px">{{title}}</a>
+      <nav class="#b39ddb deep-purple lighten-3">
+        <ul class="right">
+          <li routerLinkActive="active" routerLink="/articles"><a>Articles</a></li>
+          <li routerLinkActive="active" routerLink="/people"><a>People</a></li>
+          <li routerLinkActive="active"><a>FAQ</a></li>
+          <li routerLinkActive="active"><a>About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </nav>
+</header>
+<main>
+  <router-outlet></router-outlet>
+</main>

@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="container" style="width:100%">
+    <div class="row">
+      <div class="col s12 offset-m7 m5">
+        <div style="width:100%" class="search-wrapper right">
+          <i style="vertical-align: middle; margin-left:15px" class="material-icons prefix">search</i>
+          <input style="width:80%" [(ngModel)]="searchTerm" id="txtSearch" placeholder="Search" type="text" (keyup.enter)="search(searchTerm)"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 *ngIf="persons && persons.length == 0" style="padding-bottom: 30px">Nothing to display</h3>
+
+  <ul class="person">
+    <li *ngFor="let person of persons" class="card padded">
+      <h2>{{person.name}}</h2>
+      <p style="white-space:pre-wrap;color:gray">{{person.about}}</p>
+      <div class="card-action">
+        <a [routerLink]="['/people',person.name]" class="purple-text">Read More</a>
+      </div>
+    </li>
+  </ul>
+  <button class="waves-effect waves-light btn purple" [disabled]="currentPage == 0" (click)="changePage(0)">First</button>
+  <button class="waves-effect waves-light btn purple" [disabled]="currentPage <= 0" (click)="changePage(currentPage-1)">< Previous</button>
+  <button class="waves-effect waves-light btn purple" [disabled]="currentPage >= totalPages" (click)="changePage(currentPage+1)">Next ></button>
