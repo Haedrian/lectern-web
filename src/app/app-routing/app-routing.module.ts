@@ -35,10 +35,14 @@ const routes: Routes = [
     component: PersonComponent
   },
   {
+    path: '**',
+    redirectTo: '/articles'
+  },
+  {
     path: '',
     redirectTo: '/articles',
     pathMatch: 'full'
-  }
+  },
 ]
 
 @NgModule({
