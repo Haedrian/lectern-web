@@ -20,7 +20,7 @@
       <div class="card-action">
         <a class="deep-purple-text darken-2" style="text-transform:none;display:block" *ngFor="let ref of section.references" [href]="ref.url"
           target="_parent">
-        {{ref.name}} (n.d) retrieved from {{ref.url}}</a>
+        {{ref.name}} ({{ref.formatDate()}}) retrieved from {{ref.url}}</a>
       </div>
     </div>
 

@@ -129,9 +129,27 @@ export class ArticleLink {
 export class Reference {
     public name: string;
     public source: string;
+    public referenceDate: Date;
     public url: string;
 
     constructor(json) {
         Object.assign(this, json);
+        if (this.referenceDate) {
+            this.referenceDate = new Date(this.referenceDate);
+        }
+    }
+
+    public formatDate(): string {
+        if (!this.referenceDate) {
+            return "n.d.";
+        } else {
+            let mm = this.referenceDate.getMonth() + 1; // getMonth() is zero-based
+            let dd = this.referenceDate.getDate();
+
+            return [this.referenceDate.getFullYear(),
+            (mm > 9 ? '' : '0') + mm,
+            (dd > 9 ? '' : '0') + dd
+            ].join('-');
+        };
     }
 }
